@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: env-dev
+  name: env-map
 data:
   DEBUG: "True"
   SECRET_KEY: "secret"
@@ -41,7 +41,7 @@ spec:
         ]
         envFrom:
           - configMapRef:
-              name: env-dev
+              name: env-map
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -62,7 +62,7 @@ spec:
         image: postgres:latest
         envFrom:
           - configMapRef:
-              name: env-dev
+              name: env-map
 ---
 apiVersion: v1
 kind: Service
@@ -91,16 +91,16 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: dev-anemperfeina-ingress
+  name: ingress
   annotations:
     kubernetes.io/ingress.class: "traefik"
 spec:
   # tls:
   #   - hosts:
-  #     - dev.nemperfeina.cat
-  #     secretName: dev-nemperfeina-cat-crt
+  #     - nemperfeina.cat
+  #     secretName: nemperfeina-cat-crt
   rules:
-  - host: dev.nemperfeina.cat
+  - host: nemperfeina.cat
     http:
       paths:
       - path: /
