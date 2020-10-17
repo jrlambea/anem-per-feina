@@ -27,8 +27,6 @@ spec:
         app: backend
     spec:
       containers:
-      - name: redis
-        image: redis/redis:stable
       - name: backend
         image: geekscat/anem-per-feina:latest
         command: ["invoke"]
