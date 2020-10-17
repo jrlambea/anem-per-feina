@@ -108,6 +108,15 @@ If you want to recreate the DB just:
 
 2. Restart everything with `make up` (or `make serve` for detached mode)
 
+### Kubernetes deployment
+
+To deploy into a k8s cluster just create your desired namespace and apply the manifest:
+
+```bash
+kubectl create namespace apf-dev
+kubectl apply -n apf-dev -f manifest.yaml
+```
+
 ### Screenshots
 
 ## Home page
