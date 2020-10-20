@@ -1,5 +1,6 @@
 import os
 from datetime import timedelta
+from kombu import Queue, Exchange
 
 import environ
 
@@ -228,4 +229,19 @@ CONSTANCE_CONFIG = {
 CONSTANCE_CONFIG_FIELDSETS = {
     "General Configuration Service": ("SITE_NAME", "SITE_DESCRIPTION"),
     "Jobs Configuration Service": ("JOBS_URL",),
+}
+
+# Celery settings
+CELERY_HIGH_QUEUE_NAME = 'high_priority'
+CELERY_LOW_QUEUE_NAME = 'low_priority'
+CELERY_REDIRECT_STDOUTS_LEVEL = env('CELERY_REDIRECT_STDOUTS_LEVEL', default='DEBUG')
+CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='redis://127.0.0.1:6379/1')
+CELERY_IGNORE_RESULT = True
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_QUEUES = (
+    Queue(CELERY_HIGH_QUEUE_NAME, Exchange(CELERY_HIGH_QUEUE_NAME), routing_key=CELERY_HIGH_QUEUE_NAME),
+    Queue(CELERY_LOW_QUEUE_NAME, Exchange(CELERY_LOW_QUEUE_NAME), routing_key=CELERY_LOW_QUEUE_NAME),
+)
+
+CELERY_BEAT_SCHEDULE = {
 }
