@@ -1,8 +1,8 @@
 import os
 from datetime import timedelta
-from kombu import Queue, Exchange
 
 import environ
+from kombu import Exchange, Queue
 
 env = environ.Env()
 
@@ -25,10 +25,11 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
+    "constance.backends.database",
     "jobsapp",
     "accounts",
     "constance",
-    "constance.backends.database",
+    "notifications",
 ]
 
 MIDDLEWARE = [
@@ -232,16 +233,19 @@ CONSTANCE_CONFIG_FIELDSETS = {
 }
 
 # Celery settings
-CELERY_HIGH_QUEUE_NAME = 'high_priority'
-CELERY_LOW_QUEUE_NAME = 'low_priority'
-CELERY_REDIRECT_STDOUTS_LEVEL = env('CELERY_REDIRECT_STDOUTS_LEVEL', default='DEBUG')
-CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='redis://127.0.0.1:6379/1')
+CELERY_HIGH_QUEUE_NAME = "high_priority"
+CELERY_LOW_QUEUE_NAME = "low_priority"
+CELERY_REDIRECT_STDOUTS_LEVEL = env("CELERY_REDIRECT_STDOUTS_LEVEL", default="DEBUG")
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://127.0.0.1:6379/1")
 CELERY_IGNORE_RESULT = True
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_QUEUES = (
-    Queue(CELERY_HIGH_QUEUE_NAME, Exchange(CELERY_HIGH_QUEUE_NAME), routing_key=CELERY_HIGH_QUEUE_NAME),
-    Queue(CELERY_LOW_QUEUE_NAME, Exchange(CELERY_LOW_QUEUE_NAME), routing_key=CELERY_LOW_QUEUE_NAME),
+    Queue(
+        CELERY_HIGH_QUEUE_NAME, Exchange(CELERY_HIGH_QUEUE_NAME), routing_key=CELERY_HIGH_QUEUE_NAME
+    ),
+    Queue(
+        CELERY_LOW_QUEUE_NAME, Exchange(CELERY_LOW_QUEUE_NAME), routing_key=CELERY_LOW_QUEUE_NAME
+    ),
 )
 
-CELERY_BEAT_SCHEDULE = {
-}
+CELERY_BEAT_SCHEDULE = {}
