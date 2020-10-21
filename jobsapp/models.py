@@ -5,7 +5,8 @@ from django.utils.translation import gettext as _
 
 # APP Imports
 from accounts.models import User
-from notifications.events import EVENT_NEW_JOB, event_dispatcher
+from notifications.decorators import event_dispatcher
+from notifications.events import EVENT_NEW_JOB
 
 # Global Imports
 

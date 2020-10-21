@@ -1,19 +1,21 @@
 from django.conf import settings
 
-PROJECT_NOTIFICATIONS = getattr(settings, "NOTIFICATIONS", {})
+# Getting project settings
+PROJECT_PROVIDER_SETTINGS = getattr(settings, "NOTIFICATIONS", {})
 
-# The project notification settings is merged with the module settings.
-# TODO: Add a settings example in readme
-NOTIFICATIONS = {
+# Internal module settings be merged with project settings
+PROVIDERS_SETTINGS = {
     **{
         "telegram": {
             "enabled": False,
+            "max_retries": 5,
         },
         "twitter": {
             "enabled": False,
+            "max_retries": 5,
         },
     },
-    **PROJECT_NOTIFICATIONS,
+    **PROJECT_PROVIDER_SETTINGS,
 }
 
-IS_ENABLED = any([provider["enabled"] for provider in NOTIFICATIONS.values()])
+NOTIFICATIONS_ENABLED = any([provider["enabled"] for provider in PROVIDERS_SETTINGS.values()])
