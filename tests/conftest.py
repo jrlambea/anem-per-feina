@@ -1,5 +1,6 @@
 from django.conf import settings
 
+
 def pytest_configure():
     """
     Use for override default settings
