@@ -1,4 +1,3 @@
-
 from .settings import NOTIFICATIONS_ENABLED
 from .tasks import dispatch_event
 
@@ -15,6 +14,7 @@ def event_dispatcher(event_name: str):
         class Job(models.Model):
             pass
     """
+
     def decorator(cls):
         def save(self, *args, **kwargs):
             is_new = not self.pk
