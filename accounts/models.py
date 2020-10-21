@@ -2,7 +2,7 @@ from typing import List
 
 from django.contrib.auth.models import AbstractUser  # type: ignore
 from django.db import models  # type: ignore
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from accounts.managers import UserManager
 

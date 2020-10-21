@@ -1,14 +1,16 @@
 # DJANGO Imports
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 # APP Imports
 from accounts.models import User
+from notifications.events import EVENT_NEW_JOB, event_dispatcher
 
 # Global Imports
 
 
+@event_dispatcher(EVENT_NEW_JOB)
 class Job(models.Model):
     JOB_TYPE_FULL_TIME = "1"
     JOB_TYPE_PART_TIME = "2"
